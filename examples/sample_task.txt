@@ -1,0 +1,2 @@
+Refactor a Python script that parses CSV files so it handles malformed rows,
+adds logging, and includes unit tests for edge cases.
