@@ -1,112 +1,154 @@
 # AI Developer Productivity Tools
 
+[![CI](https://github.com/armendujkani123/ai-dev-productivity-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/armendujkani123/ai-dev-productivity-tools/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
+
 Open-source tools that help developers automate repetitive tasks using AI.
+
+This repository packages prompt templates, a lightweight Python CLI, and usage examples into a small developer toolkit that can be used for code explanation, documentation generation, implementation planning, and repetitive workflow automation.
+
+## Why This Project Exists
+
+Developers often repeat the same prompting work across debugging, refactoring, writing docs, and reviewing unfamiliar code. This toolkit standardizes those prompts so teams can move faster with more consistent AI-assisted outputs.
 
 ## Features
 
 - AI prompt templates for common development workflows
 - CLI automation for turning a coding task into a structured AI prompt
 - Code explanation helpers for understanding unfamiliar code
-- Documentation generation prompts for faster project writing
+- Documentation generation support for README files, internal docs, and onboarding guides
+- Markdown and JSON output modes for local workflows or scripting
+- Reusable examples for contributors and first-time users
 
 ## Repository Structure
 
 ```text
 ai-dev-productivity-tools/
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   ├── workflows/
+│   └── pull_request_template.md
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
+├── SECURITY.md
 ├── ai_cli_tool.py
 ├── examples/
-│   ├── sample_output.md
-│   └── sample_task.txt
-└── prompts/
-    ├── code_explanation.md
-    ├── documentation_generation.md
-    └── task_solver.md
+├── prompts/
+├── pyproject.toml
+└── tests/
 ```
 
 ## Installation
 
 ### Requirements
 
-- Python 3.9+
+- Python 3.9 or newer
 
 ### Quick Start
 
 ```bash
-git clone https://github.com/<your-username>/ai-dev-productivity-tools.git
+git clone https://github.com/armendujkani123/ai-dev-productivity-tools.git
 cd ai-dev-productivity-tools
-python3 ai_cli_tool.py --help
+python3 ai_cli_tool.py --list-templates
 ```
 
-### Optional
-
-Make the CLI executable:
+### Local Development Setup
 
 ```bash
-chmod +x ai_cli_tool.py
-./ai_cli_tool.py --task "Write unit tests for a Flask endpoint"
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install -e .
+python3 -m unittest discover -s tests -v
 ```
 
 ## Usage
 
-Generate a structured AI prompt from a development task:
+Generate a structured AI prompt from a single task:
 
 ```bash
 python3 ai_cli_tool.py --task "Refactor a legacy authentication module"
 ```
 
-Add technical context:
+Load a task description from a file:
+
+```bash
+python3 ai_cli_tool.py --from-file examples/sample_task.txt
+```
+
+Select a different template and add technical context:
 
 ```bash
 python3 ai_cli_tool.py \
   --task "Explain a slow SQL query and propose optimizations" \
-  --context "PostgreSQL 15, table has 8M rows, latency spikes during peak traffic"
+  --template code_explanation \
+  --context "PostgreSQL 15, 8M rows, latency spikes during peak traffic"
+```
+
+Generate machine-readable output for another script:
+
+```bash
+python3 ai_cli_tool.py \
+  --task "Create onboarding docs for a new API client" \
+  --template documentation_generation \
+  --output-format json
 ```
 
 Write the generated prompt to a file:
 
 ```bash
 python3 ai_cli_tool.py \
-  --task "Create onboarding docs for a new API client" \
-  --output prompts/generated_prompt.md
+  --task "Draft release notes for version 0.2.0" \
+  --output generated/release-prompt.md
 ```
 
-## Prompt Templates
+## Available Prompt Templates
 
-The `prompts/` directory contains reusable templates for:
+- `task_solver`: implementation planning, refactoring, debugging, and delivery structure
+- `code_explanation`: architecture explanation, onboarding, and unfamiliar code walkthroughs
+- `documentation_generation`: README files, onboarding docs, feature docs, and usage instructions
+- `debugging`: defect investigation, root-cause analysis, and instrumentation planning
+- `test_generation`: test planning, coverage thinking, and example test scaffolds
 
-- Solving coding tasks
-- Explaining code
-- Generating documentation
+## Example Output
 
-These templates can be adapted for ChatGPT, Codex, Claude, or other AI assistants.
+The CLI produces structured prompts with:
 
-## Examples
+- task objective
+- project context
+- response requirements
+- explicit constraints
+- template-specific guidance
 
-See the `examples/` directory for:
+See [sample_task.txt](./examples/sample_task.txt) and [sample_output.md](./examples/sample_output.md) for a full example.
 
-- A sample task input
-- A sample generated prompt
+## Quality Standards
+
+- Tested with `unittest`
+- Continuous integration on push and pull request
+- MIT licensed for open-source reuse
+- Contributor, security, and code-of-conduct documents included
 
 ## Roadmap
 
-- Add prompt templates for debugging and test generation
-- Support template selection from the CLI
-- Export prompts as Markdown or JSON
-- Add shell wrappers for CI and team workflows
+- Add prompt templates for pull request review and release planning
+- Add environment variable support for custom team defaults
+- Add shell completion and richer CLI formatting
+- Add release automation and versioned prompt packs
+- Add integration examples for GitHub Actions and local pre-commit workflows
 
 ## Contributing
 
-Contributions are welcome.
+Contributions are welcome. Start with [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup, pull request expectations, and test commands.
 
-1. Fork the repository
-2. Create a feature branch
-3. Make focused changes with clear documentation
-4. Open a pull request with a concise description
+## Security
 
-Issues and suggestions are also welcome.
+Please report security issues according to [SECURITY.md](./SECURITY.md).
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
