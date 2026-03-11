@@ -68,6 +68,11 @@ class AICLIToolTests(unittest.TestCase):
             self.assertIn("Prompt written to", buffer.getvalue())
             self.assertIn("Review this CLI design", output_file.read_text(encoding="utf-8"))
 
+    def test_parse_args_supports_version_flag(self) -> None:
+        with self.assertRaises(SystemExit) as exc:
+            ai_cli_tool.parse_args(["--version"])
+        self.assertEqual(exc.exception.code, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,6 +10,7 @@ from pathlib import Path
 
 DEFAULT_TEMPLATE = "task_solver"
 DEFAULT_AUDIENCE = "software engineer"
+VERSION = "0.1.0"
 
 
 def template_dir() -> Path:
@@ -146,6 +147,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--list-templates",
         action="store_true",
         help="List available prompt templates and exit.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {VERSION}",
     )
     return parser.parse_args(argv)
 

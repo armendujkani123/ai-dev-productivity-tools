@@ -54,6 +54,7 @@ ai-dev-productivity-tools/
 git clone https://github.com/armendujkani123/ai-dev-productivity-tools.git
 cd ai-dev-productivity-tools
 python3 ai_cli_tool.py --list-templates
+python3 ai_cli_tool.py --version
 ```
 
 ### Local Development Setup
@@ -64,6 +65,7 @@ source .venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install -e .
 python3 -m unittest discover -s tests -v
+make test
 ```
 
 ## Usage
